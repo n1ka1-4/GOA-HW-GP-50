@@ -1,0 +1,73 @@
+body {
+    font-family: "poppins", sans-serif;
+    background-color: #d7d7d7;
+    padding: 20px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.todo-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #2563eb;
+    color: white;
+}
+.edit-btn {
+    background-color: #facc15;
+}
+.complete-btn {
+    background-color: #10b981;
+    color: white;
+}
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+}
+.undo-btn {
+    background-color: #7c3aed;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-buttons button {
+    margin-left: 5px;
+}
+
+.completed-section {
+    margin-top: 30px;
+}
