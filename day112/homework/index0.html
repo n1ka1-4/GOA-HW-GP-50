@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+        <style>
+            body {
+                font-family: "poppins", sans-serif;
+                background-color: #d7d7d7;
+                padding: 20px;
+            }
+
+            h1,
+            h2 {
+                text-align: center;
+            }
+
+            .todo-container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            input[type="text"] {
+                width: 70%;
+                padding: 10px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+            }
+
+            button {
+                padding: 10px;
+                border: none;
+                border-radius: 6px;
+                margin-left: 5px;
+                cursor: pointer;
+            }
+
+            .add-btn {
+                background-color: #2563eb;
+                color: white;
+            }
+            .edit-btn {
+                background-color: #facc15;
+            }
+            .complete-btn {
+                background-color: #10b981;
+                color: white;
+            }
+            .delete-btn {
+                background-color: #ef4444;
+                color: white;
+            }
+            .undo-btn {
+                background-color: #7c3aed;
+                color: white;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            li {
+                background: white;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .task-buttons button {
+                margin-left: 5px;
+            }
+
+            .completed-section {
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="todo-container">
+            <h1>TODO Tasks</h1>
+            <div style="text-align: center">
+                <input type="text" id="task-input" placeholder="Enter task" />
+                <button class="add-btn" onclick="addTask()">Add Task</button>
+            </div>
+
+            <ul id="task-list"></ul>
+
+            <div class="completed-section">
+                <h2>Completed</h2>
+                <ul id="completed-list"></ul>
+            </div>
+        </div>
+
+        <script>
+            function addTask() {
+                let input = document.getElementById("task-input");
+                let text = input.value.trim();
+                if (text === "") return;
+
+                let li = document.createElement("li");
+                let span = document.createElement("span");
+                span.innerText = text;
+                li.appendChild(span);
+
+                let buttons = document.createElement("div");
+                buttons.className = "task-buttons";
+
+                let editBtn = document.createElement("button");
+                editBtn.innerText = "Edit";
+                editBtn.className = "edit-btn";
+                editBtn.onclick = function () {
+                    let newText = prompt("Edit task:", span.innerText);
+                    if (newText !== null && newText.trim() !== "") {
+                        span.innerText = newText.trim();
+                    }
+                };
+
+                let completeBtn = document.createElement("button");
+                completeBtn.innerText = "Complete";
+                completeBtn.className = "complete-btn";
+                completeBtn.onclick = function () {
+                    document.getElementById("task-list").removeChild(li);
+                    buttons.removeChild(editBtn);
+                    buttons.removeChild(completeBtn);
+
+                    let undoBtn = document.createElement("button");
+                    undoBtn.innerText = "Undo";
+                    undoBtn.className = "undo-btn";
+                    undoBtn.onclick = function () {
+                        document
+                            .getElementById("completed-list")
+                            .removeChild(li);
+                        addTaskBack(span.innerText);
+                    };
+                    buttons.insertBefore(undoBtn, deleteBtn);
+                    document.getElementById("completed-list").appendChild(li);
+                };
+
+                let deleteBtn = document.createElement("button");
+                deleteBtn.innerText = "Delete";
+                deleteBtn.className = "delete-btn";
+                deleteBtn.onclick = function () {
+                    li.remove();
+                };
+
+                buttons.appendChild(editBtn);
+                buttons.appendChild(completeBtn);
+                buttons.appendChild(deleteBtn);
+
+                li.appendChild(buttons);
+
+                document.getElementById("task-list").appendChild(li);
+                input.value = "";
+            }
+
+            function addTaskBack(text) {
+                let input = document.getElementById("task-input");
+                input.value = text;
+                addTask();
+            }
+        </script>
+    </body>
+</html>
