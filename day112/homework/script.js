@@ -1,4 +1,5 @@
 const addBtn = document.querySelector(".add-btn");
+
 addBtn.addEventListener("click", () => {
     let input = document.getElementById("task-input");
     let text = input.value.trim();
