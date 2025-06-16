@@ -18,18 +18,18 @@ buttons.className = "task-buttons";
 let editBtn = document.createElement("button");
 editBtn.innerText = "Edit";
 editBtn.className = "edit-btn";
-editBtn.onclick = function () {
+editBtn.addEventListener("click", () => {
     let newText = prompt("Edit task:", span.innerText);
     if (newText !== null && newText.trim() !== "") {
         span.innerText = newText.trim();
     }
-};
+});
 
 // with complite we delete everything in list and add into complite
 let completeBtn = document.createElement("button");
 completeBtn.innerText = "Complete";
 completeBtn.className = "complete-btn";
-completeBtn.onclick = function () {
+completeBtn.addEventListener("click", () => {
     document.getElementById("task-list").removeChild(li);
     buttons.removeChild(editBtn);
     buttons.removeChild(completeBtn);
@@ -38,21 +38,21 @@ completeBtn.onclick = function () {
     let undoBtn = document.createElement("button");
     undoBtn.innerText = "Undo";
     undoBtn.className = "undo-btn";
-    undoBtn.onclick = function () {
+    undoBtn.addEventListener("click", () => {
         document.getElementById("completed-list").removeChild(li);
         addTaskBack(span.innerText);
-    };
+    });
     buttons.insertBefore(undoBtn, deleteBtn);
     document.getElementById("completed-list").appendChild(li);
-};
+});
 
 // delete is easy just delete everything
 let deleteBtn = document.createElement("button");
 deleteBtn.innerText = "Delete";
 deleteBtn.className = "delete-btn";
-deleteBtn.onclick = function () {
+deleteBtn.addEventListener("click", () => {
     li.remove();
-};
+});
 
 // we add buttons
 buttons.appendChild(editBtn);
