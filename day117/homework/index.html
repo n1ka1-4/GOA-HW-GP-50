@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Car Showcase</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: sans-serif;
+                background: #f0f0f0;
+                padding: 20px;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            li {
+                cursor: pointer;
+                padding: 8px;
+                background: #fff;
+                margin-bottom: 5px;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            li:hover {
+                background-color: #e0e0e0;
+            }
+
+            #details img {
+                max-width: 300px;
+                display: block;
+                margin-top: 10px;
+            }
+
+            button {
+                margin: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Car List</h1>
+        <ul id="carList"></ul>
+        <div id="details"></div>
+
+        <script>
+            
+            class Car {
+                constructor(brand, model, year, color, image, sound) {
+                    this.brand = brand;
+                    this.model = model;
+                    this.year = year;
+                    this.color = color;
+                    this.image = image;
+                    this.sound = sound;
+                }
+
+                getInfo() {
+                    return `Brand: ${this.brand}, Model: ${this.model}, Year: ${this.year}, Color: ${this.color}`;
+                }
+            }
+
+            // Subclasses
+            class BMW extends Car {
+                constructor(model, year, color, image, sound) {
+                    super("BMW", model, year, color, image, sound);
+                }
+            }
+
+            class Mercedes extends Car {
+                constructor(model, year, color, image, sound) {
+                    super("Mercedes", model, year, color, image, sound);
+                }
+            }
+
+            class Audi extends Car {
+                constructor(model, year, color, image, sound) {
+                    super("Audi", model, year, color, image, sound);
+                }
+            }
+
+            
+            const cars = [
+                new BMW(
+                    "X5",
+                    2020,
+                    "Black",
+                    "https://cdn.pixabay.com/photo/2020/02/22/15/33/bmw-4870453_1280.jpg",
+                    "bmw.mp3"
+                ),
+                new Mercedes(
+                    "C-Class",
+                    2022,
+                    "White",
+                    "https://cdn.pixabay.com/photo/2022/09/14/21/00/mercedes-7455096_1280.jpg",
+                    "mercedes.mp3"
+                ),
+                new Audi(
+                    "A6",
+                    2021,
+                    "Blue",
+                    "https://cdn.pixabay.com/photo/2019/11/24/23/07/audi-4652394_1280.jpg",
+                    "audi.mp3"
+                ),
+            ];
+
+            const carList = document.getElementById("carList");
+            const details = document.getElementById("details");
+
+            
+            cars.forEach((car, index) => {
+                const li = document.createElement("li");
+                li.textContent = `${car.brand} ${car.model}`;
+                li.onclick = () => showDetails(index);
+                carList.appendChild(li);
+            });
+
+           
+            function showDetails(index) {
+                const car = cars[index];
+                details.innerHTML = `
+        <p>${car.getInfo()}</p>
+        <img src="${car.image}" alt="${car.model}" />
+        <br />
+        <button onclick="playSound('${car.sound}')">Engine Sound</button>
+        <button onclick="alert('${car.getInfo()}')">Get Info</button>
+      `;
+            }
+            
+            // i dont had sounds.
+            function playSound(src) {
+                const audio = new Audio(src);
+                audio.play();
+            }
+        </script>
+    </body>
+</html>
